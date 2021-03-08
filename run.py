@@ -17,7 +17,7 @@ from app import create_app, db
 DEBUG = os.environ.get('DEBUG_STATUS')
 
 # The configuration
-get_config_mode = 'Debug' if DEBUG else 'Production'
+get_config_mode = 'Debug' if DEBUG == 'True' else 'Production'
 
 try:
     
