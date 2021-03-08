@@ -3,6 +3,8 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+import os
+
 from flask import Flask, url_for
 from flask_login import LoginManager
 from flask_mongoengine import MongoEngine
@@ -35,6 +37,7 @@ def configure_database(app):
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
+    app.config['MONGODB_URI'] = os.environ.get("MONGODB_URI")
     register_extensions(app)
     register_blueprints(app)
     return app
