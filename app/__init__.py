@@ -5,12 +5,12 @@ Copyright (c) 2019 - present AppSeed.us
 
 from flask import Flask, url_for
 from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
+from flask_mongoengine import MongoEngine
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
 
-db = SQLAlchemy()
+db = MongoEngine()
 login_manager = LoginManager()
 
 def register_extensions(app):
@@ -37,5 +37,4 @@ def create_app(config):
     app.config.from_object(config)
     register_extensions(app)
     register_blueprints(app)
-    configure_database(app)
     return app

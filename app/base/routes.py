@@ -34,7 +34,7 @@ def login():
         password = request.form['password']
 
         # Locate user
-        user = User.query.filter_by(username=username).first()
+        user = User.objects(username=username).first()
         
         # Check the password
         if user and verify_pass( password, user.password):
@@ -56,11 +56,12 @@ def register():
     create_account_form = CreateAccountForm(request.form)
     if 'register' in request.form:
 
-        username  = request.form['username']
-        email     = request.form['email'   ]
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
         # Check usename exists
-        user = User.query.filter_by(username=username).first()
+        user = User.objects(username=username).first()
         if user:
             return render_template( 'accounts/register.html', 
                                     msg='Username already registered',
@@ -68,7 +69,7 @@ def register():
                                     form=create_account_form)
 
         # Check email exists
-        user = User.query.filter_by(email=email).first()
+        user = User.objects(email=email).first()
         if user:
             return render_template( 'accounts/register.html', 
                                     msg='Email already registered', 
@@ -76,14 +77,15 @@ def register():
                                     form=create_account_form)
 
         # else we can create the user
-        user = User(**request.form)
-        db.session.add(user)
-        db.session.commit()
+        user = User(username=username, email=email, password=password)
+        user.save()
 
-        return render_template( 'accounts/register.html', 
-                                msg='User created please <a href="/login">login</a>', 
-                                success=True,
-                                form=create_account_form)
+        login_user(user)
+        # return render_template('accounts/register.html',
+        #                         msg='User created please <a href="/login">login</a>',
+        #                         success=True,
+        #                         form=create_account_form)
+        return redirect(url_for('base_blueprint.route_default'))
 
     else:
         return render_template( 'accounts/register.html', form=create_account_form)

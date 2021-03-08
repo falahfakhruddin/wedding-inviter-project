@@ -6,3 +6,5 @@ flask_sqlalchemy==2.*
 email_validator
 python-decouple
 gunicorn
+flask-mongoengine>=0.9.5
+pymongo>=3.9.0
