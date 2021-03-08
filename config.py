@@ -36,8 +36,17 @@ class ProductionConfig(Config):
     #     config( 'DB_NAME'     , default='appseed-flask' )
     # )
 
+    # MongoDB database
+    MONGODB_HOST = os.environ.get("MONGODB_URI")
+
 class DebugConfig(Config):
     DEBUG = True
+
+    MONGODB_SETTINGS = {
+        "db": "greeting_project_db",
+        "host": "localhost",
+        "port": 27017
+    }
 
 # Load all possible configurations
 config_dict = {

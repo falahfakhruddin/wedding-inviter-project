@@ -4,16 +4,17 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from flask_migrate import Migrate
-from os import environ
 from sys import exit
 from decouple import config
 import logging
+
+import os
 
 from config import config_dict
 from app import create_app, db
 
 # WARNING: Don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = os.environ.get('DEBUG_STATUS')
 
 # The configuration
 get_config_mode = 'Debug' if DEBUG else 'Production'
@@ -32,7 +33,7 @@ Migrate(app, db)
 if DEBUG:
     app.logger.info('DEBUG       = ' + str(DEBUG)      )
     app.logger.info('Environment = ' + get_config_mode )
-    # app.logger.info('DBMS Host     = ' + app_config['MONGODB_HOST'])
+    app.logger.info('DBMS Host     = ' + app_config['MONGODB_HOST'])
 
 if __name__ == "__main__":
     app.run()
