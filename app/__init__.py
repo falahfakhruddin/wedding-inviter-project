@@ -37,7 +37,7 @@ def configure_database(app):
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
-    app.config['MONGODB_URI'] = os.environ.get("MONGODB_URI")
+    app.config['MONGODB_HOST'] = os.environ.get("MONGODB_URI")
     register_extensions(app)
     register_blueprints(app)
     return app
