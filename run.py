@@ -32,8 +32,7 @@ Migrate(app, db)
 if DEBUG:
     app.logger.info('DEBUG       = ' + str(DEBUG)      )
     app.logger.info('Environment = ' + get_config_mode )
-    app.logger.info('DBMS Host     = ' + app_config.MONGODB_SETTINGS['host'])
-    app.logger.info('DBMS DB     = ' + app_config.MONGODB_SETTINGS['db'])
+    # app.logger.info('DBMS Host     = ' + app_config['MONGODB_HOST'])
 
 if __name__ == "__main__":
     app.run()
