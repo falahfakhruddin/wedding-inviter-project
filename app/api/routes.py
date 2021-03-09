@@ -26,13 +26,13 @@ def message_generator(surname):
 def upload_csv():
     file = request.files['file']
     app.logger.info("file: {}".format(file))
-    df = pd.read_csv(file, sep=';')
+    df = pd.read_csv(file, sep=';', converters={'invitation_code': lambda x: str(x)})
     app.logger.info("data: {}".format(df))
 
     data_json = json.loads(df.to_json(orient='records'))
 
     for data in data_json:
-        guest = GuestList(invitation_code=str(data['invitation_code']),
+        guest = GuestList(invitation_code=data['invitation_code'],
                           name=data['name'],
                           group=data['group'],
                           phone=data['phone'])
