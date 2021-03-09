@@ -29,7 +29,7 @@ def upload_csv():
         guest = GuestList(invitation_code=str(data['invitation_code']),
                           name=data['name'],
                           group=data['group'],
-                          phone=str(data['phone']))
+                          phone=data['phone'])
         guest.save()
 
     return jsonify({"status": 200, "message": "success"})
