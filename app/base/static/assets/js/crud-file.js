@@ -31,6 +31,7 @@
                 // here we will handle errors and validation messages
 
                 $('form').html('<div class="alert alert-success">' + data.message + '</div>');
+
             })
 
             // using the fail promise callback
@@ -45,6 +46,10 @@
 
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
+
+        setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                 }, 500);
       });
 
       /*
@@ -81,4 +86,9 @@
 
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
+
+        setTimeout(function(){// wait for 5 secs(2)
+            location.reload(); // then reload the page.(3)
+         }, 500);
+
       });

@@ -2,7 +2,7 @@ import pandas as pd
 import json
 
 from flask import jsonify
-from flask import current_app as app, request
+from flask import current_app as app, request, redirect
 
 from app.models.guest_models import GuestList
 from app.api import blueprint
@@ -11,9 +11,15 @@ from app.api import blueprint
 @blueprint.route('/backend/message-generator/template/<surname>', methods=['GET'])
 def message_generator(surname):
 
-    template_message = "Halo tes {}".format(surname)
+    phone = request.args.get('phone')
+    invitation_code = request.args.get('invitation_code')
 
-    return template_message
+    template_message = "Halo {} coba buka ini ya https://sanfalstory.wedew.id/{}".format(surname, invitation_code)
+
+    url = "https://wa.me/{}?text={}".format(phone, template_message)
+
+    app.logger.info("wa url: {}".format(url))
+    return redirect(url, code=302)
 
 
 @blueprint.route('/backend/guest-list/_upload', methods=['POST'])

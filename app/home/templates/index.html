@@ -96,6 +96,7 @@
                   <th scope="col" class="sort" data-sort="name">Full Name</th>
                   <th scope="col" class="sort" data-sort="budget">Group</th>
                   <th scope="col" class="sort" data-sort="budget">Phone</th>
+                  <th scope="col" class="sort" data-sort="budget">Share Invitation</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -106,6 +107,7 @@
                   <td>{{ person.name }}</td>
                   <td>{{ person.group }}</td>
                   <td>{{ person.phone }}</td>
+                  <td> <a href="{{ url_for('api_blueprint.message_generator', surname=person.name, phone=person.phone, invitation_code=person.invitation_code) }}" target="_blank">Invite Via WhatsApp</a> </td>
                 </tr>
                 {% endfor %}
               </tbody>
