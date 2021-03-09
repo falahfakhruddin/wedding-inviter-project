@@ -6,7 +6,7 @@ class GuestList(db.Document):
     name = db.StringField()
     surname = db.StringField()
     group = db.StringField()
-    phone = db.LongField()
+    phone = db.StringField()
     created_at = db.DateTimeField()
 
     meta = {
