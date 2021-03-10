@@ -8,7 +8,21 @@ from app.models.guest_models import GuestList
 from app.api import blueprint
 
 
-@blueprint.route('/backend/message-generator/template/<surname>', methods=['GET'])
+@blueprint.route('/backend/_message/<surname>')
+def get_message(surname):
+
+    phone = request.args.get('phone')
+    invitation_code = request.args.get('invitation_code')
+
+    template_message = "Halo {} coba buka ini ya https://sanfalstory.wedew.id/{}".format(surname, invitation_code)
+
+    url = "https://wa.me/{}?text={}".format(phone, template_message)
+
+    app.logger.info("wa url: {}".format(url))
+    return jsonify({'template_message': template_message, "phone": phone})
+
+
+@blueprint.route('/backend/message-generator/<surname>', methods=['GET'])
 def message_generator(surname):
 
     phone = request.args.get('phone')

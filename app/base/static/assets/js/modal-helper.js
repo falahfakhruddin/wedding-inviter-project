@@ -92,3 +92,59 @@
          }, 500);
 
       });
+
+      $('#inviteGuest').submit(function(event) {
+
+        let phone = $('#phoneTemplate').text();
+        let message = $("textarea[id=messageForm]").val();
+
+        if (phone != "None"){
+            var url = `https://wa.me/${phone}?text=${message}`;
+        }
+        else{
+            var url = `whatsapp://send?text=${message}`;
+        }
+
+        console.log(url);
+
+        var win = window.open(url, '_blank');
+
+        if (win) {
+            //Browser has allowed it to be opened
+            win.focus();
+        } else {
+            //Browser has blocked it
+            alert('Please allow popups for this website');
+        }
+
+      });
+
+
+      /*
+      generate message
+      */
+
+      $('.open-shareButton').click(function(event) {
+
+        var name = $(this).data('guest');
+        var phone = $(this).data('phone');
+        var code = $(this).data('code');
+
+        var formData = {
+            'phone' : phone,
+            'invitation_code' : code
+        };
+
+        console.log(name);
+        console.log(formData)
+
+        $.getJSON({
+            url: $SCRIPT_ROOT + "api/backend/_message/" + name ,
+            data: formData,
+            success: function(data){
+                $("#phoneTemplate").html(data.phone);
+                $("textarea").html(data.template_message);
+            }
+        });
+
+      });
