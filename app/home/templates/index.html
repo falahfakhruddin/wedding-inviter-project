@@ -89,7 +89,20 @@ label {font-weight: 600;}
         <div class="card">
           <!-- Card header -->
           <div class="card-header border-0">
-            <h3 class="mb-0">Light table</h3>
+            <h3 class="mb-0">Guest table</h3>
+          </div>
+          <!-- Filter Query -->
+          <div class="card-header">
+
+            <form class="form-inline" id="formFilter" action="{{ url_for('home_blueprint.get_data', page=1, group=group) }}">
+              <div class="form-group mb-2">
+                <label class="form-control-plaintext">Filter By Group </label>
+              </div>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="search" id="form1" class="form-control" placeholder="{{ group }}" name="group" aria-label="Search" />
+              </div>
+              <a href="{{ url_for('home_blueprint.get_data', page=1)}}"><u>clear filter</u></a>
+            </form>
           </div>
           <!-- Light table -->
           <div class="table-responsive">
@@ -111,7 +124,6 @@ label {font-weight: 600;}
                   <td>{{ person.name }}</td>
                   <td>{{ person.group }}</td>
                   <td>{{ person.phone }}</td>
-<!--                  <td> <a href="{{ url_for('api_blueprint.message_generator', surname=person.name, phone=person.phone, invitation_code=person.invitation_code) }}" target="_blank">Invite Via WhatsApp</a> </td>-->
                   <td> <a class="open-shareButton btn btn-sm btn-neutral" data-target="#inviteGuestModal"
                           data-guest="{{ person.name }}" data-phone="{{ person.phone }}" data-code="{{ person.invitation_code }}"
                           data-toggle="modal" id="inviteButton">Invite Via WA</a> </td>
@@ -158,13 +170,13 @@ label {font-weight: 600;}
           <div class="card-footer py-4">
             <nav aria-label="...">
               {# Macro for creating navigation links #}
-                {% macro render_navigation(pagination, endpoint) %}
+                {% macro render_navigation(pagination, endpoint, filter) %}
                   <ul class="pagination justify-content-end mb-0">
                   {% for page in pagination.iter_pages() %}
                     {% if page %}
                       {% if page != pagination.page %}
                         <li class="page-item">
-                          <a class="page-link" href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
+                          <a class="page-link" href="{{ url_for(endpoint, page=page, group=filter) }}">{{ page }}</a>
                         </li>
                       {% else %}
                         <li class="page-item active">
@@ -178,7 +190,7 @@ label {font-weight: 600;}
                   </ul>
                 {% endmacro %}
 
-                {{ render_navigation(guest, 'home_blueprint.get_data') }}
+                {{ render_navigation(guest, 'home_blueprint.get_data', group) }}
             </nav>
           </div>
         </div>
