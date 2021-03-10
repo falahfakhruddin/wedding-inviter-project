@@ -93,6 +93,11 @@
 
       });
 
+
+      /*
+      share invitation to guest
+      */
+
       $('#inviteGuest').submit(function(event) {
 
         let phone = $('#phoneTemplate').text();
@@ -146,5 +151,72 @@
                 $("textarea").html(data.template_message);
             }
         });
+
+      });
+
+       /*
+      get template message
+      */
+
+      $('.open-editButton').click(function(event) {
+
+        $.getJSON({
+            url: $SCRIPT_ROOT + "api/backend/message/_get",
+            success: function(data){
+                $("textarea").html(data.template_message);
+            }
+        });
+
+      });
+
+      /*
+      edit template message
+      */
+
+      $('#editTemplateMessage').submit(function(event) {
+
+        let message = $("textarea[id=templateMessageForm]").val();
+
+        var formData = {
+            "template_message": message
+        }
+
+        // process the form
+        $.ajax({
+          method: 'POST',
+          url: $SCRIPT_ROOT + 'api/backend/message/_edit',
+          contentType: "application/json",
+          dataType: "json",
+          accepts: "application/json",
+          data: JSON.stringify(formData)
+        })
+            // using the done promise callback
+            .done(function(data) {
+
+                // log data to the console so we can see
+                console.log(data);
+
+                // here we will handle errors and validation messages
+
+                $('form').html('<div class="alert alert-success">' + data.message + '</div>');
+
+            })
+
+            // using the fail promise callback
+            .fail(function(data) {
+
+              // log data to the console so we can see
+              console.log(data);
+
+              //Server failed to respond - Show an error message
+              $('form').html('<div class="alert alert-danger">Could not reach server, please try again later and refresh the page.</div>');
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+
+        setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                 }, 500);
 
       });

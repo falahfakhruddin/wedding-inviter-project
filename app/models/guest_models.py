@@ -29,3 +29,12 @@ class GuestStatus(db.Document):
             'name'
         ]
     }
+
+
+class TemplateMessage(db.Document):
+    name = db.StringField(unique=True)
+    template = db.StringField()
+
+    meta = {
+        'collections': 'template_message'
+    }

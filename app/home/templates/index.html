@@ -29,58 +29,85 @@ label {font-weight: 600;}
             <!-- Button trigger modal -->
             <a class="btn btn-sm btn-neutral" data-toggle="modal" data-target="#uploadGuestModal">Upload Guest List</a>
             <a class="btn btn-sm btn-neutral" data-toggle="modal" data-target="#deleteGuestModal">Delete Guest List</a>
+            <a class="open-editButton btn btn-sm btn-neutral" data-toggle="modal" data-target="#editTemplateMessageModal">Edit Template Message</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<!-- Upload Modal -->
-<div class="modal fade" id="uploadGuestModal" tabindex="-1" role="dialog" aria-labelledby="uploadGuestModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="uploadGuestModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <!-- Upload Modal -->
+  <div class="modal fade" id="uploadGuestModal" tabindex="-1" role="dialog" aria-labelledby="uploadGuestModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadGuestModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="uploadGuest" name="fileinfo">
+          <div class="modal-body">
+            Upload Guest List CSV File
+          </div>
+          <input type="file" name="guestFile" class="form-control-file border">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="uploadButton">Upload</button>
+          </div>
+          </form>
       </div>
-      <form id="uploadGuest" name="fileinfo">
-        <div class="modal-body">
-          Upload Guest List CSV File
-        </div>
-        <input type="file" name="guestFile" class="form-control-file border">
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="uploadButton">Upload</button>
-        </div>
-        </form>
     </div>
   </div>
-</div>
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteGuestModal" tabindex="-1" role="dialog" aria-labelledby="deleteGuestModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteGuestModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteGuestModal" tabindex="-1" role="dialog" aria-labelledby="deleteGuestModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteGuestModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="deleteGuest" name="fileinfo">
+          <div class="modal-body">
+            Are you sure?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+          </div>
+          </form>
       </div>
-      <form id="deleteGuest" name="fileinfo">
-        <div class="modal-body">
-          Are you sure?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
-        </div>
-        </form>
     </div>
   </div>
-</div>
+
+  <!-- Edit Template Modal -->
+  <div class="modal fade" id="editTemplateMessageModal" tabindex="-1" role="dialog" aria-labelledby="editTemplateMessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTemplateMessageModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="editTemplateMessage">
+          <div class="modal-body">
+            <div class="form-group row">
+              <label for="messageForm">Message:</label>
+              <textarea class="form-control" id="templateMessageForm"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-info" id="editButton">Edit</button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
 
 <!-- Page content -->
   <div class="container-fluid mt--6">
