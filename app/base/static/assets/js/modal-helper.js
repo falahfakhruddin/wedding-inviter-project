@@ -101,7 +101,11 @@
       $('#inviteGuest').submit(function(event) {
 
         let phone = $('#phoneTemplate').text();
-        let message = $("textarea[id=messageForm]").val();
+        var str = $("textarea[id=messageForm]").val();
+
+        let message = encodeURIComponent(str);
+
+        console.log(message)
 
         if (phone != "None"){
             var url = `https://wa.me/${phone}?text=${message}`;
