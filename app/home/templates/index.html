@@ -136,23 +136,21 @@ label {font-weight: 600;}
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col" class="sort" data-sort="budget">Invitation Code</th>
-                  <th scope="col" class="sort" data-sort="name">Full Name</th>
+                  <th scope="col" class="sort" data-sort="name">Name</th>
                   <th scope="col" class="sort" data-sort="budget">Group</th>
-                  <th scope="col" class="sort" data-sort="budget">Phone</th>
+                  <th scope="col" class="sort" data-sort="budget">Shared At</th>
                   <th scope="col" class="sort" data-sort="budget">Share Invitation</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody class="list">
                 {% for person in guest.items %}
-                <tr>
-                  <td>{{ person.invitation_code }}</td>
+                <tr>\
                   <td>{{ person.name }}</td>
                   <td>{{ person.group }}</td>
-                  <td>{{ person.phone }}</td>
+                  <td>{{ person.sharedAt }}</td>
                   <td> <a class="open-shareButton btn btn-sm btn-neutral" data-target="#inviteGuestModal"
-                          data-guest="{{ person.name }}" data-phone="{{ person.phone }}" data-code="{{ person.invitation_code }}"
+                          data-guest="{{ person.name }}" data-group="{{ person.group }}"
                           data-toggle="modal" id="inviteButton">Invite Via WA</a> </td>
                 </tr>
 
@@ -172,12 +170,6 @@ label {font-weight: 600;}
                   </div>
                   <form id="inviteGuest">
                     <div class="modal-body">
-                      <div class="form-group row">
-                        <label for="phoneTemplate">Phone Number:</label>
-                        <div class="col-sm-10">
-                          <span class="form-control-plaintext" id="phoneTemplate" style="padding: 0"></span>
-                        </div>
-                      </div>
                       <div class="form-group row">
                         <label for="messageForm">Message:</label>
                         <textarea class="form-control" id="messageForm"></textarea>

@@ -44,6 +44,17 @@ def get_data(page):
     return render_template('index.html', guest=guest, group=group)
 
 
+@blueprint.route('/rsvp-list')
+@login_required
+def get_rsvp():
+
+    if not request.script_root:
+        # this assumes that the 'index' view function handles the path '/'
+        request.script_root = url_for('base_blueprint.route_default', _external=True)
+
+    return render_template('rsvp.html')
+
+
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):

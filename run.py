@@ -18,7 +18,7 @@ DEBUG = os.environ.get('DEBUG_STATUS')
 
 # The configuration
 get_config_mode = 'Debug' if DEBUG == 'True' else 'Production'
-
+app_config = {}
 try:
     
     # Load the configuration using the default values 
@@ -27,7 +27,7 @@ try:
 except KeyError:
     exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
 
-app = create_app( app_config ) 
+app = create_app(app_config)
 Migrate(app, db)
 
 if DEBUG:

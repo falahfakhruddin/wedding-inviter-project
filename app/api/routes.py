@@ -11,14 +11,13 @@ from app.api import blueprint
 @blueprint.route('/backend/_message/<surname>')
 def get_message(surname):
 
-    phone = request.args.get('phone')
-    invitation_code = request.args.get('invitation_code')
+    group = request.args.get('group')
 
     template_message = TemplateMessage.objects(name="template").first()['template']
 
-    template_message = template_message.format(username=surname, code=invitation_code)
+    template_message = template_message.format(username=surname, group=group)
 
-    return jsonify({'template_message': template_message, "phone": phone})
+    return jsonify({'template_message': template_message, "group": group})
 
 
 @blueprint.route('/backend/message-generator/<surname>', methods=['GET'])
@@ -38,16 +37,14 @@ def message_generator(surname):
 @blueprint.route('/backend/guest-list/_upload', methods=['POST'])
 def upload_csv():
     file = request.files['file']
-    df = pd.read_csv(file, sep=';', converters={'invitation_code': lambda x: str(x)})
+    df = pd.read_csv(file, sep=';', converters={'group': lambda x: str(x)})
     app.logger.info("data: {}".format(df))
 
     data_json = json.loads(df.to_json(orient='records'))
 
     for data in data_json:
-        guest = GuestList(invitation_code=data['invitation_code'],
-                          name=data['name'],
-                          group=data['group'],
-                          phone=data['phone'])
+        guest = GuestList(name=data['name'],
+                          group=data['group'])
         guest.save()
 
     return jsonify({"status": 200, "message": "success"})

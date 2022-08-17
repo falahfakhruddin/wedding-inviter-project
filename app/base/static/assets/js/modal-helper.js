@@ -100,19 +100,13 @@
 
       $('#inviteGuest').submit(function(event) {
 
-        let phone = $('#phoneTemplate').text();
         var str = $("textarea[id=messageForm]").val();
 
         let message = encodeURIComponent(str);
 
         console.log(message)
 
-        if (phone != "None"){
-            var url = `https://wa.me/${phone}?text=${message}`;
-        }
-        else{
-            var url = `whatsapp://send?text=${message}`;
-        }
+        var url = `whatsapp://send?text=${message}`;
 
         console.log(url);
 
@@ -136,12 +130,10 @@
       $('.open-shareButton').click(function(event) {
 
         var name = $(this).data('guest');
-        var phone = $(this).data('phone');
-        var code = $(this).data('code');
+        var group = $(this).data('group');
 
         var formData = {
-            'phone' : phone,
-            'invitation_code' : code
+            'group' : group,
         };
 
         console.log(name);
