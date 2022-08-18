@@ -40,10 +40,6 @@ def create_app(config):
 
     app.logger.info('Service Running With Config Debug is {}!'.format(app.config['DEBUG']))
 
-    if not app.config['DEBUG']:
-        #app.logger.info('URI: {}'.format(app.config['MONGODB_HOST']))
-        app.config['MONGODB_HOST'] = os.environ.get['MONGODB_HOST']
-
     register_extensions(app)
     register_blueprints(app)
     return app
