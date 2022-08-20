@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from app.home import blueprint
-from app.models.guest_models import GuestList
+from app.models.guest_models import GuestList, TemplateMessage
 from flask import current_app as app, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from flask_mongoengine import Pagination
@@ -53,6 +53,19 @@ def get_rsvp():
         request.script_root = url_for('base_blueprint.route_default', _external=True)
 
     return render_template('rsvp.html')
+
+
+@blueprint.route('/template-messaging/<int:page>')
+@login_required
+def get_template_message_page(page):
+
+    if not request.script_root:
+        # this assumes that the 'index' view function handles the path '/'
+        request.script_root = url_for('base_blueprint.route_default', _external=True)
+
+    template = TemplateMessage.objects.paginate(page=page, per_page=20)
+
+    return render_template('template_messaging.html', template_messages=template)
 
 
 @blueprint.route('/<template>')

@@ -13,7 +13,12 @@ def get_message(surname):
 
     group = request.args.get('group')
 
-    template_message = TemplateMessage.objects(name="template").first()['template']
+    template_message = TemplateMessage.objects(group=group).first()
+
+    if template_message is None:
+        template_message = TemplateMessage.objects(group="default").first()
+
+    template_message = template_message["template"]
 
     template_message = template_message.format(username=surname, group=group)
 
@@ -73,8 +78,9 @@ def edit_template_message():
 
     update_message = request.json
 
-    template = TemplateMessage.objects(name='template')
+    template = TemplateMessage.objects(group=update_message['group'])
     for msg in template:
+        app.logger.info('Message template, {} with group {}!'.format(template, update_message['group']))
         msg.update(template=update_message['template_message'])
 
     return jsonify({"status": 200, "message": "success"})

@@ -49,8 +49,6 @@ class DebugConfig(Config):
         "port": 27017
     }
 
-    SECRET_KEY = os.urandom(32)
-
 # Load all possible configurations
 config_dict = {
     'Production': ProductionConfig,

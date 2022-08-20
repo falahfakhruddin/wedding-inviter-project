@@ -155,13 +155,13 @@
       */
 
       $('.open-editButton').click(function(event) {
+        var template = $(this).data('template');
+        var group = $(this).data('group');
+        $("textarea").html(template);
+        var groupTemplate = document.getElementById("groupTemplate")
+        groupTemplate.innerHTML = group;
+        groupTemplate.value = group;
 
-        $.getJSON({
-            url: $SCRIPT_ROOT + "api/backend/message/_get",
-            success: function(data){
-                $("textarea").html(data.template_message);
-            }
-        });
 
       });
 
@@ -172,10 +172,13 @@
       $('#editTemplateMessage').submit(function(event) {
 
         let message = $("textarea[id=templateMessageForm]").val();
+        let group = $("label[id=groupTemplate]").val();
 
         var formData = {
-            "template_message": message
+            "template_message": message,
+            "group": group
         }
+        console.log(formData)
 
         // process the form
         $.ajax({
