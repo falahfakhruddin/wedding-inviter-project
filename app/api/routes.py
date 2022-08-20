@@ -103,10 +103,12 @@ def update_guest_shared_at():
     guest = request.json
 
     guests = GuestList.objects(name=guest['name'])
+    wib_time = datetime.datetime.now() + datetime.timedelta(hours=7)  # add 7 hour for convert uct to wib
+
     app.logger.info('Guest, {} with name {}!'.format(guests, guest['name']))
     for guest in guests:
         app.logger.info('Guest, {} with name {}!'.format(guests, guest['name']))
-        guest.update(shared_at=datetime.datetime.now())
+        guest.update(shared_at=wib_time)
 
     return jsonify({"status": 200, "message": "success"})
 
