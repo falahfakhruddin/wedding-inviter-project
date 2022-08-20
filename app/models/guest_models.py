@@ -31,6 +31,7 @@ class GuestStatus(db.Document):
 
 class TemplateMessage(db.Document):
     group = db.StringField(unique=True)
+    name = db.StringField()
     template = db.StringField()
 
     meta = {
