@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import datetime
 
 from flask import jsonify
 from flask import current_app as app, request, redirect
@@ -92,6 +93,20 @@ def add_template_message():
 
     template = TemplateMessage(group=add_message['group'], template=add_message['template_message'])
     template.save()
+
+    return jsonify({"status": 200, "message": "success"})
+
+
+@blueprint.route('/backend/guest/_update_shared_at', methods=['POST'])
+def update_guest_shared_at():
+
+    guest = request.json
+
+    guests = GuestList.objects(name=guest['name'])
+    app.logger.info('Guest, {} with name {}!'.format(guests, guest['name']))
+    for guest in guests:
+        app.logger.info('Guest, {} with name {}!'.format(guests, guest['name']))
+        guest.update(shared_at=datetime.datetime.now())
 
     return jsonify({"status": 200, "message": "success"})
 

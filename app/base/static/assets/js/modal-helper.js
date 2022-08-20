@@ -101,6 +101,7 @@
       $('#inviteGuest').submit(function(event) {
 
         var str = $("textarea[id=messageForm]").val();
+        var name = $("label[id=guestName]").val();
 
         let message = encodeURIComponent(str);
 
@@ -110,15 +111,55 @@
 
         console.log(url);
 
-        var win = window.open(url, '_blank');
+        var formData = {
+            'name' : name,
+        };
 
-        if (win) {
-            //Browser has allowed it to be opened
-            win.focus();
-        } else {
-            //Browser has blocked it
-            alert('Please allow popups for this website');
-        }
+        // process the form
+        $.ajax({
+          method: 'POST',
+          url: $SCRIPT_ROOT + 'api/backend/guest/_update_shared_at',
+          contentType: "application/json",
+          dataType: "json",
+          accepts: "application/json",
+          data: JSON.stringify(formData)
+        })
+            // using the done promise callback
+            .done(function(data) {
+
+                // log data to the console so we can see
+                console.log(data);
+
+                // here we will handle errors and validation messages
+
+                var win = window.open(url, '_blank');
+
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    alert('Please allow popups for this website');
+                }
+
+            })
+
+            // using the fail promise callback
+            .fail(function(data) {
+
+              // log data to the console so we can see
+              console.log(data);
+
+              //Server failed to respond - Show an error message
+              $('form').html('<div class="alert alert-danger">Could not reach server, please try again later and refresh the page.</div>');
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+
+        setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                 }, 500);
 
       });
 
@@ -143,10 +184,13 @@
             url: $SCRIPT_ROOT + "api/backend/_message/" + name ,
             data: formData,
             success: function(data){
-                $("#phoneTemplate").html(data.phone);
                 $("textarea").html(data.template_message);
             }
         });
+
+        var guestName = document.getElementById("guestName")
+        guestName.innerHTML = name;
+        guestName.value = name;
 
       });
 
