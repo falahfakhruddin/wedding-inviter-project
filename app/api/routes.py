@@ -88,9 +88,9 @@ def edit_template_message():
 
 @blueprint.route('/backend/message/_add', methods=['POST'])
 def add_template_message():
+    add_message = request.json
 
-    msg = "Halo {username} coba buka ini ya https://sanfalstory.wedew.id/{code}"
-    template = TemplateMessage(name='template', template=msg)
+    template = TemplateMessage(group=add_message['group'], template=add_message['template_message'])
     template.save()
 
     return jsonify({"status": 200, "message": "success"})
