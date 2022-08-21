@@ -32,3 +32,4 @@ package-lock.json
 bin/*
 lib/*
 pyvenv.cfg
+setenv.sh
