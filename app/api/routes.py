@@ -116,7 +116,6 @@ def update_guest_shared_at():
 
 @blueprint.route('/backend/arcgis/populate-data', methods=['POST'])
 def populate_rsvp_to_dashboard():
-
     config_airtable = app.config['AIRTABLE']
     config_gis = app.config['GIS']
 
