@@ -6,9 +6,9 @@ from flask import current_app as app
 
 
 def construct_df_from_airtable(config_airtable):
-    base_id = config_airtable["BASE_ID"] #"appOzeOyw1sSt19id"
-    api_key = config_airtable["API_KEY"]  #"keyBPJ9RW4g0TQePV"
-    table_name = config_airtable["TABLE_NAME"] #"Guest"
+    base_id = config_airtable["BASE_ID"]
+    api_key = config_airtable["API_KEY"]
+    table_name = config_airtable["TABLE_NAME"]
 
     # init connection to airtable
     table = Table(api_key, base_id, table_name)
@@ -30,10 +30,10 @@ def construct_df_from_airtable(config_airtable):
 
 
 def upload_data_to_arcgis(config_gis, df_input):
-    # CRED, BIARIN AJA HARDCODE WKWK
-    user = config_gis["USER"] #"nanaufal"
-    passwd = config_gis["PASS"] #"Nanaufal2808"
-    url = config_gis["URL"] #"https://nanaufal.maps.arcgis.com/home"
+    
+    user = config_gis["USER"]
+    passwd = config_gis["PASS"]
+    url = config_gis["URL"]
 
     gis = GIS(url,
               username=user,
