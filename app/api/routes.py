@@ -7,6 +7,7 @@ from flask import current_app as app, request, redirect
 
 from app.models.guest_models import GuestList, TemplateMessage
 from app.api import blueprint
+from app.api.helper import arcgis_integrator as ai
 
 
 @blueprint.route('/backend/_message/<surname>')
@@ -109,6 +110,21 @@ def update_guest_shared_at():
     for guest in guests:
         app.logger.info('Guest, {} with name {}!'.format(guests, guest['name']))
         guest.update(shared_at=wib_time)
+
+    return jsonify({"status": 200, "message": "success"})
+
+
+@blueprint.route('/backend/arcgis/populate-data', methods=['POST'])
+def populate_rsvp_to_dashboard():
+
+    config_airtable = app.config['AIRTABLE']
+    config_gis = app.config['GIS']
+
+    app.logger.info('config airtable {}'.format(config_airtable))
+    app.logger.info('config gis {}'.format(config_gis))
+
+    df = ai.construct_df_from_airtable(config_airtable)
+    ai.upload_data_to_arcgis(config_gis, df)
 
     return jsonify({"status": 200, "message": "success"})
 

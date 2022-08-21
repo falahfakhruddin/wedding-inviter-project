@@ -17,6 +17,17 @@ class Config(object):
     # This will create a file in <app> FOLDER
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
     # SQLALCHEMY_TRACK_MODIFICATIONS = False
+    GIS = {
+        "USER": os.environ.get("GIS_USER"),
+        "PASS": os.environ.get("GIS_PASS"),
+        "URL": os.environ.get("GIS_URL")
+    }
+
+    AIRTABLE = {
+        "BASE_ID": os.environ.get("AIRTABLE_BASE_ID"),
+        "API_KEY": os.environ.get("AIRTABLE_API_KEY"),
+        "TABLE_NAME": os.environ.get("AIRTABLE_TABLE_NAME")
+    }
 
 
 class ProductionConfig(Config):

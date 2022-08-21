@@ -7,7 +7,7 @@ Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 gunicorn==20.0.4
 mongoengine==0.23.0
-pandas==0.24.2
+pandas==0.25.3
 pymongo==3.11.3
 python-decouple==3.4
 Werkzeug==1.0.1
@@ -16,3 +16,5 @@ jinja2==2.10.1
 MarkupSafe==1.1.1
 alembic==1.5.6
 itsdangerous==1.1.0
+arcgis==1.8.0
+pyairtable==1.2.0
